@@ -17,6 +17,7 @@
     "babel-preset-react": "^6.23.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "sk-progress-circle": "^0.5.1",
     "webpack": "^2.1.0-beta.22",
     "webpack-dev-server": "^2.4.1"
   },

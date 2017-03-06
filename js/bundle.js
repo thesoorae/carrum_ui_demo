@@ -9729,13 +9729,9 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _circle = __webpack_require__(86);
+var _progress_contents = __webpack_require__(185);
 
-var _circle2 = _interopRequireDefault(_circle);
-
-var _text_widget = __webpack_require__(87);
-
-var _text_widget2 = _interopRequireDefault(_text_widget);
+var _progress_contents2 = _interopRequireDefault(_progress_contents);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9748,13 +9744,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Progress = function (_React$Component) {
   _inherits(Progress, _React$Component);
 
-  function Progress() {
+  function Progress(props) {
     _classCallCheck(this, Progress);
 
-    var _this = _possibleConstructorReturn(this, (Progress.__proto__ || Object.getPrototypeOf(Progress)).call(this));
+    var _this = _possibleConstructorReturn(this, (Progress.__proto__ || Object.getPrototypeOf(Progress)).call(this, props));
 
     _this.state = {
-      currentStep: "first"
+      currentStep: "first",
+      allSteps: props.steps
     };
     _this.changeStep = _this.changeStep.bind(_this);
     return _this;
@@ -9770,6 +9767,15 @@ var Progress = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      var steps = this.state.allSteps;
+      var stepDetails = steps[this.state.currentStep];
+      var currentlyPerforming = stepDetails.current;
+      var percent = stepDetails.progress * 100;
+      var step1 = this.state.currentStep == "first" ? "show" : "";
+      var step2 = this.state.currentStep == "second" ? "show" : "";
+      var step3 = this.state.currentStep == "third" ? "show" : "";
+      var step4 = this.state.currentStep == "fourth" ? "show" : "";
+
       return _react2.default.createElement(
         'div',
         { className: 'progress-sec-container' },
@@ -9781,46 +9787,40 @@ var Progress = function (_React$Component) {
             { className: 'first-step step', onClick: function onClick() {
                 _this2.changeStep('first');
               } },
-            _react2.default.createElement(
-              'div',
-              { className: 'step-title' },
-              '1. Program Qualification'
-            )
+            _react2.default.createElement(_progress_contents2.default, { show: step1, title: "1. Program Qualification", details: stepDetails })
           ),
           _react2.default.createElement(
             'div',
             { className: 'second-step step', onClick: function onClick() {
                 _this2.changeStep('second');
               } },
-            _react2.default.createElement(
-              'div',
-              { className: 'step-title' },
-              '2. Pre-Admission Preparation '
-            )
+            _react2.default.createElement(_progress_contents2.default, { show: step2, title: "2. Pre-Admission Preparation", details: stepDetails })
           ),
           _react2.default.createElement(
             'div',
             { className: 'third-step step', onClick: function onClick() {
                 _this2.changeStep('third');
               } },
-            _react2.default.createElement(
-              'div',
-              { className: 'step-title' },
-              '3. Hospital Stay '
-            )
+            _react2.default.createElement(_progress_contents2.default, { show: step3, title: "3. Hospital Stay", details: stepDetails })
           ),
           _react2.default.createElement(
             'div',
             { className: 'fourth-step step', onClick: function onClick() {
                 _this2.changeStep('fourth');
               } },
-            _react2.default.createElement(
-              'div',
-              { className: 'step-title' },
-              '3. Post-Discharge Activities'
-            )
+            _react2.default.createElement(_progress_contents2.default, { show: step4, title: "3. Post-Discharge Activities", details: stepDetails })
           ),
-          _react2.default.createElement(_text_widget2.default, { step: this.state.currentStep, steps: this.props.steps })
+          _react2.default.createElement(
+            'div',
+            { className: 'current-step' },
+            _react2.default.createElement(
+              'h2',
+              null,
+              'Currently performing:'
+            ),
+            ' ',
+            currentlyPerforming
+          )
         )
       );
     }
@@ -9842,90 +9842,8 @@ module.exports = __webpack_require__(115);
 
 
 /***/ },
-/* 86 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(13);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Circle = function (_React$Component) {
-  _inherits(Circle, _React$Component);
-
-  function Circle() {
-    _classCallCheck(this, Circle);
-
-    return _possibleConstructorReturn(this, (Circle.__proto__ || Object.getPrototypeOf(Circle)).apply(this, arguments));
-  }
-
-  _createClass(Circle, [{
-    key: 'render',
-    value: function render() {
-      _react2.default.createElement('div', null);
-    }
-  }]);
-
-  return Circle;
-}(_react2.default.Component);
-
-module.exports = Circle;
-
-/***/ },
-/* 87 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(13);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TextWidget = function (_React$Component) {
-  _inherits(TextWidget, _React$Component);
-
-  function TextWidget() {
-    _classCallCheck(this, TextWidget);
-
-    return _possibleConstructorReturn(this, (TextWidget.__proto__ || Object.getPrototypeOf(TextWidget)).apply(this, arguments));
-  }
-
-  _createClass(TextWidget, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement('div', null);
-    }
-  }]);
-
-  return TextWidget;
-}(_react2.default.Component);
-
-module.exports = TextWidget;
-
-/***/ },
+/* 86 */,
+/* 87 */,
 /* 88 */
 /***/ function(module, exports) {
 
@@ -22226,7 +22144,9 @@ var Root = function (_React$Component) {
           progress: .85,
           current: "Discharge"
         },
-        fourth: null
+        fourth: {
+          progress: 0,
+          current: "None to display" }
 
       }
 
@@ -22262,6 +22182,88 @@ var Root = function (_React$Component) {
 document.addEventListener('DOMContentLoaded', function () {
   _reactDom2.default.render(_react2.default.createElement(Root, null), document.getElementById('main'));
 });
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(13);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ProgressContents = function (_React$Component) {
+  _inherits(ProgressContents, _React$Component);
+
+  function ProgressContents(props) {
+    _classCallCheck(this, ProgressContents);
+
+    var _this = _possibleConstructorReturn(this, (ProgressContents.__proto__ || Object.getPrototypeOf(ProgressContents)).call(this, props));
+
+    _this.state = {
+      title: props.title,
+      show: props.show,
+      details: props.details
+    };
+    return _this;
+  }
+
+  _createClass(ProgressContents, [{
+    key: "shouldComponentUpdate",
+    value: function shouldComponentUpdate(nextProps) {
+      if (nextProps.show != this.state.show) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }, {
+    key: "componentWillUpdate",
+    value: function componentWillUpdate(nextProps) {
+      this.setState({
+        show: nextProps.show,
+        details: nextProps.details
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var showClass = "progress-contents " + this.state.show;
+      var percentCircle = this.state.show == "" ? "" : this.state.details.progress;
+      return _react2.default.createElement(
+        "div",
+        { className: showClass },
+        _react2.default.createElement("sk-progress", { status: "75" }),
+        _react2.default.createElement(
+          "div",
+          { className: "percent" },
+          percentCircle
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "step-title" },
+          this.state.title
+        )
+      );
+    }
+  }]);
+
+  return ProgressContents;
+}(_react2.default.Component);
+
+module.exports = ProgressContents;
 
 /***/ }
 /******/ ]);

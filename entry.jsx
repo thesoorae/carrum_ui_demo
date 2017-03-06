@@ -33,7 +33,9 @@ class Root extends React.Component {
           progress: .85,
           current: "Discharge"
         },
-        fourth:null
+        fourth:{
+        progress: 0,
+        current: "None to display"}
 
       }
 

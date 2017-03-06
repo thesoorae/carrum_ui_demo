@@ -1,12 +1,12 @@
 import React from 'react';
-import Circle from './circle';
-import TextWidget from './text_widget';
+import ProgressContents from './progress_contents';
 
 class Progress extends React.Component{
-constructor(){
-  super();
+constructor(props){
+  super(props);
   this.state = {
-    currentStep: "first"
+    currentStep: "first",
+    allSteps: props.steps
   };
   this.changeStep = this.changeStep.bind(this);
 }
@@ -15,25 +15,35 @@ changeStep(step){
   this.setState({currentStep: step});
 }
 render(){
-    return(
+  const steps = this.state.allSteps;
+  const stepDetails = steps[this.state.currentStep];
+  let currentlyPerforming = stepDetails.current;
+  let percent = stepDetails.progress * 100;
+  let step1 = this.state.currentStep == "first" ? "show" : "";
+  let step2 = this.state.currentStep == "second" ? "show" : "";
+  let step3 = this.state.currentStep == "third" ? "show" : "";
+  let step4 = this.state.currentStep == "fourth" ? "show" : "";
+
+  return(
 
 <div className="progress-sec-container">
   <div className={`progress-sec ${this.state.currentStep}`}>
     <div className="first-step step" onClick={()=>{this.changeStep('first');}}>
-      <div className="step-title">1. Program Qualification</div>
+      <ProgressContents show={step1} title={"1. Program Qualification"} details={stepDetails}/>
     </div>
+
     <div className="second-step step" onClick={()=>{this.changeStep('second');}}>
-      <div className="step-title">2. Pre-Admission Preparation </div>
+
+      <ProgressContents show={step2} title={"2. Pre-Admission Preparation"} details={stepDetails}/>
   </div>
 <div className="third-step step" onClick={()=>{this.changeStep('third');}}>
-  <div className="step-title">3. Hospital Stay </div>
 
+  <ProgressContents show={step3} title={"3. Hospital Stay"} details={stepDetails}/>
   </div>
 <div className="fourth-step step" onClick={()=>{this.changeStep('fourth');}}>
-  <div className="step-title">3. Post-Discharge Activities</div>
-
+  <ProgressContents show={step4} title={"3. Post-Discharge Activities"} details={stepDetails}/>
   </div>
-    <TextWidget step={this.state.currentStep} steps ={this.props.steps}/>
+  <div className="current-step"><h2>Currently performing:</h2> {currentlyPerforming}</div>
     </div>
   </div>
 );
