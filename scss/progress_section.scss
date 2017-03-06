@@ -1,0 +1,50 @@
+
+div.progress-sec-container{
+  width: 100%;
+  height: 200px;
+  margin: 30px 0;
+
+}
+div.progress-sec{
+  // width: 90%;
+  width: 95%;
+  height: 200px;
+  margin:  auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+   background-position: center;
+   position: relative;
+}
+
+.first{
+  background-image: url('../img/first_tab.png');
+}
+.second{
+  background-image: url('../img/second_tab.png');
+}
+.third{
+  background-image: url('../img/third_tab.png');
+}
+.fourth{
+  background-image: url('../img/fourth_tab.png');
+}
+.progress-sec > .step{
+  position: absolute;
+  width: 15%;
+  height: 100%;
+  border: 1px solid gray;
+}
+
+
+.first-step{
+  left: 7.5%;
+}
+.second-step{
+  left: 33.5%;
+}
+.third-step{
+  left: 59.5%;
+}
+.fourth-step{
+  left: 86%;
+}

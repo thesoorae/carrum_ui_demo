@@ -1,0 +1,21 @@
+.container{
+  width: 100%;
+  height: 100%;
+  background-color: $yellow;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+div.app{
+  width: 85%;
+  margin: 0 auto;
+  background-color: white;
+}
+.bottom{
+  width: 95%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-top: $blue 1px solid;
+}
