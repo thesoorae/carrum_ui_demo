@@ -24,6 +24,20 @@ div.progress-sec-container{
   display: none;
 
 }
+.progress-sec > .step{
+  position: absolute;
+  width: 100%;
+}
+
+.first-step, .second-step, .third-step, .fourth-step{
+  top: 0;
+  left: 0;
+}
+
+div.step-title{
+  position: relative;
+  margin: auto;
+}
 div.progress-sec{
   height: 100px;
   width: 100%;
