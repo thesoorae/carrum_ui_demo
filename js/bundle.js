@@ -9796,7 +9796,7 @@ var PatientTasks = function (_React$Component) {
           { className: 'gray-title' },
           'My next steps'
         ),
-        _react2.default.createElement(_task2.default, { task: currentTask, complete: this.props.complete, current: this.state.current })
+        _react2.default.createElement(_task2.default, { task: currentTask, complete: this.props.goToNext, current: this.state.current })
       );
     }
   }]);
@@ -9915,7 +9915,7 @@ var Progress = function (_React$Component) {
             _react2.default.createElement(
               'strong',
               null,
-              'Currently performing:'
+              'Currently performing: '
             ),
             currentlyPerforming,
             ' '
@@ -22622,15 +22622,24 @@ var Root = function (_React$Component) {
     };
     _this.patient = data;
     _this.update = _this.update.bind(_this);
+    _this.goToNext = _this.goToNext.bind(_this);
     return _this;
   }
 
   _createClass(Root, [{
     key: 'update',
-    value: function update(step, completedStep) {
+    value: function update(step) {
       this.setState({
         current: step
       });
+    }
+  }, {
+    key: 'goToNext',
+    value: function goToNext(step) {
+      var stepLabels = ["first", "second", "third", "fourth"];
+      var i = stepLabels.indexOf(step);
+      var nextStep = stepLabels[i + 1];
+      this.update(nextStep);
     }
   }, {
     key: 'render',
@@ -22655,7 +22664,7 @@ var Root = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'bottom' },
-            _react2.default.createElement(_patient2.default, { tasks: patientTasks, update: this.update, current: this.state.current }),
+            _react2.default.createElement(_patient2.default, { tasks: patientTasks, goToNext: this.goToNext, current: this.state.current }),
             _react2.default.createElement(_concierge2.default, { tasks: conciergeTasks, current: this.state.current, name: 'Jenny K' })
           )
         )

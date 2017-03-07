@@ -1,0 +1,60 @@
+@media only screen and (max-width: 768px) {
+.header > div.title{
+  width: 200px;
+  font-size: 10px;
+  padding: 0;
+  margin: 0;
+}
+div.app{
+  width: 500px;
+}
+.progress-sec {
+  display: hidden;
+  background-image: none;
+}
+div.progress-sec-container{
+  height: 100px;
+  position: relative;
+}
+.current-step{
+  display: block;
+  bottom: -30px;
+}
+.step *{
+  display: none;
+
+}
+div.progress-sec{
+  height: 100px;
+  width: 100%;
+}
+
+div.show {
+  display: block;
+  width: 500px;
+  height: 150px;
+  position: relative;
+  margin: 0 auto;
+
+
+}
+.show * {
+  display: block;
+}
+
+.bottom{
+  width: 95%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-top: $blue 1px solid;
+}
+
+.task-box{
+  width: 300px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+}

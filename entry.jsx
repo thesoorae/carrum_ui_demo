@@ -59,13 +59,21 @@ class Root extends React.Component {
     };
     this.patient = data;
     this.update = this.update.bind(this);
+    this.goToNext = this.goToNext.bind(this);
   }
 
-  update(step, completedStep){
+  update(step){
     this.setState({
       current: step,
       });
   }
+  goToNext(step){
+    const stepLabels = ["first", "second", "third", "fourth"];
+    let i = stepLabels.indexOf(step);
+    let nextStep = stepLabels[i+1];
+    this.update(nextStep);
+  }
+
   render() {
     let stepProgress = {};
     let patientTasks = {};
@@ -84,7 +92,7 @@ class Root extends React.Component {
             <Progress steps={stepProgress} update={this.update} current={this.state.current}/>
 
             <div className = "bottom">
-            <PatientTasks tasks={patientTasks} update={this.update} current={this.state.current}/>
+            <PatientTasks tasks={patientTasks} goToNext={this.goToNext} current={this.state.current}/>
             <ConciergeTasks tasks={conciergeTasks} current={this.state.current} name="Jenny K"/>
           </div>
         </div>
