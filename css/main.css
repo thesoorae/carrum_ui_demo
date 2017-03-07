@@ -204,11 +204,13 @@ a {
 
   .progress-sec {
     display: hidden;
-    background-image: none; }
+    background-image: none;
+    width: 100%; }
 
   div.progress-sec-container {
     height: 100px;
-    position: relative; }
+    position: relative;
+    width: 100%; }
 
   .current-step {
     display: block;
@@ -237,7 +239,9 @@ a {
     display: block;
     width: 500px;
     height: 150px;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     margin: 0 auto; }
 
   .show * {
