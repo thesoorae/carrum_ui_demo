@@ -32,27 +32,34 @@ div.progress-sec{
   position: absolute;
   width: 150px;
   height: 100%;
-  border: 1px solid gray;
+  // border: 1px solid gray;
 
 }
 
 
 .first-step{
-  left: 17px;
+  left: 17.5px;
 }
 .second-step{
-  left: 240px;
+  left: 242px;
 }
 .third-step{
-  left: 465px;
+  left: 464px;
 }
 .fourth-step{
-  left: 685px;
+  left: 687px;
+}
+div.progress-contents{
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 .step-title{
   text-align: center;
+  position: absolute;
+  top: 70px;
   margin: auto;
-  margin-top: 70px;
+
 }
 
 .show > .step-title{
@@ -68,4 +75,28 @@ div.progress-sec{
   position: absolute;
   bottom: 0px;
   margin: 20px;
+}
+
+.percent-circle{
+  top: 5.5px;
+  width: 100%;
+  margin: auto;
+  position: relative;
+}
+.prog-circ{
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 50px;
+}
+.percent-text{
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 50px;
+  text-align: center;
+  margin: 18px auto;
+  font-size: 14px;
+  font-weight: bold;
 }

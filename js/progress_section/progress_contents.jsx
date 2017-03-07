@@ -1,4 +1,5 @@
 import React from 'react';
+import PercentCircle from './circle';
 class ProgressContents extends React.Component{
   constructor(props){
     super(props);
@@ -23,11 +24,11 @@ class ProgressContents extends React.Component{
 
   }
   render(){
+    let percent = this.state.details.progress * 100;
     let showClass = `progress-contents ${this.state.show}`;
-    const percentCircle = this.state.show == "" ? "" : this.state.details.progress ;
-    return(
+    const percentCircle = this.state.show == "" ? "" : <PercentCircle percent={percent} />;
+  return(
       <div className={showClass}>
-        <sk-progress status="75" />
         <div className="percent">
           {percentCircle}
         </div>
