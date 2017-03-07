@@ -49,7 +49,7 @@ componentWillUpdate(nextProps){
   <ProgressContents show={step4} title={"3. Post-Discharge Activities"} details={stepDetails}/>
   </div>
   <div className="current-step"><i className="fa fa-arrow-right" aria-hidden="true"></i>
-<strong>Currently performing:</strong>{currentlyPerforming} </div>
+<strong>Currently performing: </strong>{currentlyPerforming} </div>
     </div>
   </div>
 );

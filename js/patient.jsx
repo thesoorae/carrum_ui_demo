@@ -26,7 +26,7 @@ render(){
       <div className="gray-title">
         My next steps
       </div>
-      <Task task={currentTask} complete={this.props.complete} current={this.state.current}/>
+      <Task task={currentTask} complete={this.props.goToNext} current={this.state.current}/>
     </div>
   );
 }
