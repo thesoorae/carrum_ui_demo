@@ -5,14 +5,27 @@ import Task from './task';
 class ConciergeTasks extends React.Component{
   constructor(props){
     super(props);
-    this.task = {
-      title: props.task.title,
-      action: ""};
-    this.name = props.task.name;
-
+    this.state = {
+      current: props.current
+    };
+    this.tasks = props.tasks;
+    this.name = props.name;
+  }
+  shouldComponentUpdate(nextProps){
+    if(nextProps.current != this.state.current){
+      return true;
+    } else{
+      return false;
+    }
+  }
+  componentWillUpdate(nextProps){
+    this.setState({current: nextProps.current});
   }
 render(){
-
+  let currentTask = {
+    title: this.tasks[this.state.current],
+    action: ""
+  };
   return(
     <div className="task-box">
       <div className="gray-title">
@@ -28,7 +41,7 @@ render(){
           <div className="subtitle">
             Currently assisting with:
             </div>
-            <Task task={this.task}/>
+            <Task task={currentTask}/>
         </div>
       </div>
 

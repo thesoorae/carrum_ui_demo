@@ -3,20 +3,30 @@ import Task from './task';
 class PatientTasks extends React.Component{
   constructor(props){
     super(props);
+    this.state = {
+      current: props.current
+    };
     this.tasks = props.tasks;
-
+  }
+  shouldComponentUpdate(nextProps){
+    if(nextProps.current != this.state.current){
+      return true;
+    } else{
+      return false;
+    }
+  }
+  componentWillUpdate(nextProps){
+    this.setState({current: nextProps.current});
   }
 render(){
-  console.log(this.tasks);
-  const tasks = this.tasks.map((task)=>{
-    return <Task task={task}/>;
-  });
+
+  let currentTask = this.tasks[this.state.current];
   return(
     <div className="task-box">
       <div className="gray-title">
         My next steps
       </div>
-      {tasks}
+      <Task task={currentTask} complete={this.props.complete} current={this.state.current}/>
     </div>
   );
 }

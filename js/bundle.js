@@ -6753,14 +6753,25 @@ var Task = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
 
-    _this.title = props.task.title;
-    _this.action = props.task.action;
+    _this.state = {
+      title: props.task.title,
+      action: props.task.action
+    };
     return _this;
   }
 
   _createClass(Task, [{
+    key: "componentWillUpdate",
+    value: function componentWillUpdate(nextProps) {
+      this.setState({
+        title: nextProps.task.title,
+        action: nextProps.task.action
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
 
       return _react2.default.createElement(
         "div",
@@ -6772,13 +6783,15 @@ var Task = function (_React$Component) {
           _react2.default.createElement(
             "div",
             { className: "title" },
-            this.title
+            this.state.title
           )
         ),
         _react2.default.createElement(
           "a",
-          { href: "#" },
-          this.action
+          { href: "#", onClick: function onClick() {
+              _this2.props.complete(_this2.props.current);
+            } },
+          this.state.action
         )
       );
     }
@@ -9532,18 +9545,35 @@ var ConciergeTasks = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (ConciergeTasks.__proto__ || Object.getPrototypeOf(ConciergeTasks)).call(this, props));
 
-    _this.task = {
-      title: props.task.title,
-      action: "" };
-    _this.name = props.task.name;
-
+    _this.state = {
+      current: props.current
+    };
+    _this.tasks = props.tasks;
+    _this.name = props.name;
     return _this;
   }
 
   _createClass(ConciergeTasks, [{
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps) {
+      if (nextProps.current != this.state.current) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }, {
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate(nextProps) {
+      this.setState({ current: nextProps.current });
+    }
+  }, {
     key: 'render',
     value: function render() {
-
+      var currentTask = {
+        title: this.tasks[this.state.current],
+        action: ""
+      };
       return _react2.default.createElement(
         'div',
         { className: 'task-box' },
@@ -9573,7 +9603,7 @@ var ConciergeTasks = function (_React$Component) {
               { className: 'subtitle' },
               'Currently assisting with:'
             ),
-            _react2.default.createElement(_task2.default, { task: this.task })
+            _react2.default.createElement(_task2.default, { task: currentTask })
           )
         ),
         _react2.default.createElement(
@@ -9686,18 +9716,32 @@ var PatientTasks = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (PatientTasks.__proto__ || Object.getPrototypeOf(PatientTasks)).call(this, props));
 
+    _this.state = {
+      current: props.current
+    };
     _this.tasks = props.tasks;
-
     return _this;
   }
 
   _createClass(PatientTasks, [{
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps) {
+      if (nextProps.current != this.state.current) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }, {
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate(nextProps) {
+      this.setState({ current: nextProps.current });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      console.log(this.tasks);
-      var tasks = this.tasks.map(function (task) {
-        return _react2.default.createElement(_task2.default, { task: task });
-      });
+
+      var currentTask = this.tasks[this.state.current];
       return _react2.default.createElement(
         'div',
         { className: 'task-box' },
@@ -9706,7 +9750,7 @@ var PatientTasks = function (_React$Component) {
           { className: 'gray-title' },
           'My next steps'
         ),
-        tasks
+        _react2.default.createElement(_task2.default, { task: currentTask, complete: this.props.complete, current: this.state.current })
       );
     }
   }]);
@@ -9750,63 +9794,71 @@ var Progress = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Progress.__proto__ || Object.getPrototypeOf(Progress)).call(this, props));
 
     _this.state = {
-      currentStep: "first",
-      allSteps: props.steps
+      current: props.current
     };
-    _this.changeStep = _this.changeStep.bind(_this);
+    _this.steps = props.steps;
     return _this;
   }
 
   _createClass(Progress, [{
-    key: 'changeStep',
-    value: function changeStep(step) {
-      this.setState({ currentStep: step });
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps) {
+      if (nextProps.current != this.state.current) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }, {
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate(nextProps) {
+      this.setState({ current: nextProps.current });
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      var steps = this.state.allSteps;
-      var stepDetails = steps[this.state.currentStep];
-      var currentlyPerforming = stepDetails.current;
-      var percent = stepDetails.progress * 100;
-      var step1 = this.state.currentStep == "first" ? "show" : "";
-      var step2 = this.state.currentStep == "second" ? "show" : "";
-      var step3 = this.state.currentStep == "third" ? "show" : "";
-      var step4 = this.state.currentStep == "fourth" ? "show" : "";
+      var steps = this.steps;
+      var stepDetails = steps[this.state.current];
+      var currentlyPerforming = stepDetails.stepAction;
+      var percent = stepDetails.percent * 100;
+      var step1 = this.state.current == "first" ? "show" : "";
+      var step2 = this.state.current == "second" ? "show" : "";
+      var step3 = this.state.current == "third" ? "show" : "";
+      var step4 = this.state.current == "fourth" ? "show" : "";
 
       return _react2.default.createElement(
         'div',
         { className: 'progress-sec-container' },
         _react2.default.createElement(
           'div',
-          { className: 'progress-sec ' + this.state.currentStep },
+          { className: 'progress-sec ' + this.state.current },
           _react2.default.createElement(
             'div',
             { className: 'first-step step', onClick: function onClick() {
-                _this2.changeStep('first');
+                _this2.props.update('first');
               } },
             _react2.default.createElement(_progress_contents2.default, { show: step1, title: "1. Program Qualification", details: stepDetails })
           ),
           _react2.default.createElement(
             'div',
             { className: 'second-step step', onClick: function onClick() {
-                _this2.changeStep('second');
+                _this2.props.update('second');
               } },
             _react2.default.createElement(_progress_contents2.default, { show: step2, title: "2. Pre-Admission Preparation", details: stepDetails })
           ),
           _react2.default.createElement(
             'div',
             { className: 'third-step step', onClick: function onClick() {
-                _this2.changeStep('third');
+                _this2.props.update('third');
               } },
             _react2.default.createElement(_progress_contents2.default, { show: step3, title: "3. Hospital Stay", details: stepDetails })
           ),
           _react2.default.createElement(
             'div',
             { className: 'fourth-step step', onClick: function onClick() {
-                _this2.changeStep('fourth');
+                _this2.props.update('fourth');
               } },
             _react2.default.createElement(_progress_contents2.default, { show: step4, title: "3. Post-Discharge Activities", details: stepDetails })
           ),
@@ -9819,8 +9871,8 @@ var Progress = function (_React$Component) {
               null,
               'Currently performing:'
             ),
-            ' ',
-            currentlyPerforming
+            currentlyPerforming,
+            ' '
           )
         )
       );
@@ -9903,7 +9955,7 @@ var ProgressContents = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var percent = this.state.details.progress * 100;
+      var percent = this.state.details.percent * 100;
       var showClass = 'progress-contents ' + this.state.show;
       var percentCircle = this.state.show == "" ? "" : _react2.default.createElement(_circle2.default, { percent: percent });
       return _react2.default.createElement(
@@ -22199,6 +22251,53 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var data = {
+  first: {
+    progress: {
+      percent: 0.75,
+      stepAction: "Medical records collection"
+    },
+    patientTask: {
+      title: "Complete medical records release form",
+      action: "Complete"
+    },
+    conciergeTask: "Awaiting your action"
+  },
+  second: {
+    progress: {
+      percent: .8,
+      stepAction: "Medical records collection"
+    },
+    patientTask: {
+      title: "Well done! You have no outstanding tasks",
+      action: "None"
+    },
+    conciergeTask: "Collecting records from providers"
+  },
+  third: {
+    progress: {
+      percent: .85,
+      stepAction: "Discharge"
+    },
+    patientTask: {
+      title: "Discharge appointment",
+      action: "Prepare for your appointment"
+    },
+    conciergeTask: "Awaiting your action"
+  },
+  fourth: {
+    progress: {
+      percent: 0,
+      stepAction: "None to display"
+    },
+    patientTask: {
+      title: "None to display",
+      action: "None"
+    },
+    conciergeTask: "Awaiting your action"
+  }
+};
+
 var Root = function (_React$Component) {
   _inherits(Root, _React$Component);
 
@@ -22207,41 +22306,33 @@ var Root = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Root.__proto__ || Object.getPrototypeOf(Root)).call(this));
 
-    _this.patient = {
-      tasks: [{
-        title: "Discharge appointment",
-        action: "Prepare for your appointment"
-      }],
-      concierge: {
-        title: "Awaiting your action",
-        name: "Jenny K."
-      },
-      steps: {
-        first: {
-          progress: 0.75,
-          current: "Medical records collection"
-        },
-        second: {
-          progress: .8,
-          current: "Medical records collection"
-        },
-        third: {
-          progress: .85,
-          current: "Discharge"
-        },
-        fourth: {
-          progress: 0,
-          current: "None to display" }
-
-      }
-
+    _this.state = {
+      current: "first"
     };
+    _this.patient = data;
+    _this.update = _this.update.bind(_this);
     return _this;
   }
 
   _createClass(Root, [{
+    key: 'update',
+    value: function update(step, completedStep) {
+      this.setState({
+        current: step
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var stepProgress = {};
+      var patientTasks = {};
+      var conciergeTasks = {};
+      for (var key in this.patient) {
+        stepProgress[key] = this.patient[key].progress;
+        patientTasks[key] = this.patient[key].patientTask;
+        conciergeTasks[key] = this.patient[key].conciergeTask;
+      }
+
       return _react2.default.createElement(
         'div',
         { className: 'container' },
@@ -22249,12 +22340,12 @@ var Root = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'app' },
-          _react2.default.createElement(_progress2.default, { steps: this.patient.steps }),
+          _react2.default.createElement(_progress2.default, { steps: stepProgress, update: this.update, current: this.state.current }),
           _react2.default.createElement(
             'div',
             { className: 'bottom' },
-            _react2.default.createElement(_patient2.default, { tasks: this.patient.tasks }),
-            _react2.default.createElement(_concierge2.default, { task: this.patient.concierge })
+            _react2.default.createElement(_patient2.default, { tasks: patientTasks, update: this.update, current: this.state.current }),
+            _react2.default.createElement(_concierge2.default, { tasks: conciergeTasks, current: this.state.current, name: 'Jenny K' })
           )
         )
       );

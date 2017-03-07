@@ -24,7 +24,7 @@ class ProgressContents extends React.Component{
 
   }
   render(){
-    let percent = this.state.details.progress * 100;
+    let percent = this.state.details.percent * 100;
     let showClass = `progress-contents ${this.state.show}`;
     const percentCircle = this.state.show == "" ? "" : <PercentCircle percent={percent} />;
   return(
